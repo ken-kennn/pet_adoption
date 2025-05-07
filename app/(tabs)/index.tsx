@@ -15,6 +15,7 @@ const pets = [
     name: 'Mittens',
     breed: 'Siamese Cat',
     age: '1 year',
+    image: require('../../assets/images/sc.jpg'),
   },
   {
     id: 3,
@@ -29,30 +30,35 @@ const pets = [
     name: 'Luna',
     breed: 'Persian Cat',
     age: '2 years',
+    image: require('../../assets/images/pc.png'),
   },
   {
     id: 5,
     name: 'Charlie',
     breed: 'Beagle',
     age: '4 months',
+    image: require('../../assets/images/bgle.jpg'),
   },
   {
     id: 6,
     name: 'Bella',
     breed: 'Ragdoll Cat',
     age: '3 months',
+    image: require('../../assets/images/rc.jpg'),
   },
   {
     id: 7,
     name: 'Coco',
     breed: 'Ragdoll Cat',
     age: '3 months',
+    image: require('../../assets/images/rc2.jpg'),
   },
   {
     id: 8,
     name: 'Daisy',
     breed: 'Ragdoll Cat',
     age: '3 months',
+    image: require('../../assets/images/rc3.jpg'),
   
   },
 ];

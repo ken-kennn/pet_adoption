@@ -9,13 +9,17 @@ const pets = [
     name: 'Buddy',
     breed: 'Golden Retriever',
     age: '2 years',
+    type: 'dog',
     image: require('../assets/images/gr.jpg'),
   },
   {
     id: 2,
     name: 'Mittens',
     breed: 'Siamese Cat',
+    type: 'cat',
     age: '1 year',
+    image: require('../assets/images/sc.jpg'),
+
     
   },
   {
@@ -23,39 +27,55 @@ const pets = [
     name: 'Max',
     breed: 'Bulldog',
     age: '3 years',
+    type: 'dog',
     image: require('../assets/images/bd.jpg'),
-
-    
   },
   {
     id: 4,
     name: 'Luna',
     breed: 'Persian Cat',
+    type: 'cat',
     age: '2 years',
+    image: require('../assets/images/pc.png'),
+
   },
   {
     id: 5,
     name: 'Charlie',
     breed: 'Beagle',
     age: '4 months',
+    type: 'dog',
+    image: require('../assets/images/bgle.jpg'),
+
   },
   {
     id: 6,
     name: 'Bella',
     breed: 'Ragdoll Cat',
     age: '3 months',
+    type: 'cat',
+    image: require('../assets/images/rc.jpg'),
+
+
   },
   {
     id: 7,
     name: 'Coco',
     breed: 'Ragdoll Cat',
     age: '3 months',
+    type: 'cat',
+    image: require('../assets/images/rc2.jpg'),
+
   },
   {
     id: 8,
     name: 'Daisy',
     breed: 'Ragdoll Cat',
     age: '3 months',
+    type: 'cat',
+    image: require('../assets/images/rc3.jpg'),
+
+
   },
 ];
 
@@ -83,11 +103,10 @@ export default function PetDetails() {
 
   const filteredPets = useMemo(() => {
     return pets.filter(
-      p =>
-        p.breed.toLowerCase().includes(type) &&
-        p.name !== pet.name
+      p => p.type === pet.type && p.id !== pet.id
     );
-  }, [type, pet.name]);
+  }, [pet]);
+  
 
   return (
     <ScrollView style={styles.container}>
