@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Pettio",
-    "slug": "Pettio ",
+    "slug": "Pettio",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/pet_adoption.png",
@@ -16,7 +16,8 @@
         "foregroundImage": "./assets/images/pet_adoption.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.k3nnyyyy.Pettio"
     },
     "web": {
       "bundler": "metro",
@@ -37,6 +38,12 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "129dad38-5f61-4b37-b5ad-9e2bdfb06958"
+      }
     }
   }
 }
