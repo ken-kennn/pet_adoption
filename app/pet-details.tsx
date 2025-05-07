@@ -1,6 +1,6 @@
 import { AntDesign } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const pets = [
@@ -9,20 +9,22 @@ const pets = [
     name: 'Buddy',
     breed: 'Golden Retriever',
     age: '2 years',
-    image: 'https://placedog.net/400/300',
+    image: require('../assets/images/gr.jpg'),
   },
   {
     id: 2,
     name: 'Mittens',
     breed: 'Siamese Cat',
     age: '1 year',
-    image: 'https://placekitten.com/400/300',
+    
   },
   {
     id: 3,
     name: 'Max',
     breed: 'Bulldog',
     age: '3 years',
+    image: require('../assets/images/bd.jpg'),
+
     
   },
   {
@@ -30,93 +32,116 @@ const pets = [
     name: 'Luna',
     breed: 'Persian Cat',
     age: '2 years',
-    image: 'https://placekitten.com/401/301',
   },
   {
     id: 5,
     name: 'Charlie',
     breed: 'Beagle',
     age: '4 months',
-    image: 'https://placedog.net/402/300',
   },
   {
     id: 6,
     name: 'Bella',
     breed: 'Ragdoll Cat',
     age: '3 months',
-    image: 'https://placekitten.com/402/302',
   },
   {
     id: 7,
     name: 'Coco',
     breed: 'Ragdoll Cat',
     age: '3 months',
-    image: 'https://placekitten.com/403/303',
   },
   {
     id: 8,
     name: 'Daisy',
     breed: 'Ragdoll Cat',
     age: '3 months',
-    image: 'https://placekitten.com/407/307',
   },
 ];
 
 export default function PetDetails() {
-  const { name, breed, age, image } = useLocalSearchParams();
+  const { id } = useLocalSearchParams();
   const router = useRouter();
 
+  const pet = pets.find(p => p.id === Number(id));
+
+  if (!pet) {
+    return (
+      <View style={styles.container}>
+        <Text style={{ fontSize: 16 }}>Pet not found</Text>
+      </View>
+    );
+  }
+
+  const [isLiked, setIsLiked] = useState(false);
+
   const handleAdopt = () => {
-    Alert.alert('Adoption Request Sent', `You have shown interest in adopting ${name}!`);
+    Alert.alert('Adoption Request Sent', `You have shown interest in adopting ${pet.name}!`);
   };
 
-  // Determine pet "type" from breed
-  const type = typeof breed === 'string' && breed.toLowerCase().includes('cat') ? 'cat' : 'dog';
+  const type = pet.breed.toLowerCase().includes('cat') ? 'cat' : 'dog';
 
   const filteredPets = useMemo(() => {
     return pets.filter(
-      pet =>
-        pet.breed.toLowerCase().includes(type) &&
-        pet.name !== name
+      p =>
+        p.breed.toLowerCase().includes(type) &&
+        p.name !== pet.name
     );
-  }, [type, name]);
+  }, [type, pet.name]);
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Image source={{ uri: image as string }} style={styles.avatar} />
+        {pet.image ? (
+          <Image source={pet.image} style={styles.avatar} />
+        ) : (
+          <View style={[styles.avatar, { justifyContent: 'center', alignItems: 'center' }]}>
+            <Text style={{ fontSize: 10, color: '#888' }}>No Image</Text>
+          </View>
+        )}
+
         <View style={{ flex: 1 }}>
-          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.name}>{pet.name}</Text>
           <Text style={styles.type}>{type}</Text>
-          <Text style={styles.description}>{breed} · {age}</Text>
+          <Text style={styles.description}>{pet.breed} · {pet.age}</Text>
         </View>
-        <TouchableOpacity style={styles.favoriteIcon}>
-          <AntDesign name="hearto" size={24} color="#000" />
+        <TouchableOpacity
+          style={styles.favoriteIcon}
+          onPress={() => setIsLiked(!isLiked)}
+        >
+          <AntDesign
+            name={isLiked ? 'heart' : 'hearto'}
+            size={24}
+            color={isLiked ? 'red' : '#000'}
+          />
         </TouchableOpacity>
       </View>
 
-     
-
       <View style={styles.descriptionBox}>
         <Text style={styles.descriptionText}>
-          {name} is a lovely looking for a forever home. Friendly, gentle, and full of personality!
+          {pet.name} is a lovely pet looking for a forever home. Friendly, gentle, and full of personality!
         </Text>
       </View>
 
       <Text style={styles.sectionTitle}>More Pets</Text>
       <View style={styles.morePets}>
-        {filteredPets.map((pet, idx) => (
+        {filteredPets.map((p, idx) => (
           <View key={idx} style={styles.petCard}>
-            <Image source={{ uri: pet.image }} style={styles.petImage} />
-            <Text style={styles.petName}>{pet.name}</Text>
-            <Text style={styles.petBreed}>{pet.breed}</Text>
+            {p.image ? (
+              <Image source={p.image} style={styles.petImage} />
+            ) : (
+              <View style={[styles.petImage, { justifyContent: 'center', alignItems: 'center' }]}>
+                <Text style={{ fontSize: 10, color: '#888' }}>No Image</Text>
+              </View>
+            )}
+            <Text style={styles.petName}>{p.name}</Text>
+            <Text style={styles.petBreed}>{p.breed}</Text>
           </View>
         ))}
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.backButton} onPress={() => router.push('/')}
-        >
+        <TouchableOpacity style={styles.backButton} onPress={() => router.push('/')}>
           <Text style={styles.backText}>Go Back</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.adoptButton} onPress={handleAdopt}>
@@ -126,6 +151,7 @@ export default function PetDetails() {
     </ScrollView>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -163,12 +189,6 @@ const styles = StyleSheet.create({
   favoriteIcon: {
     padding: 8,
   },
-  mainImage: {
-    width: '100%',
-    height: 180,
-    borderRadius: 10,
-    marginBottom: 20,
-  },
   sectionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -193,6 +213,7 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 8,
     marginBottom: 8,
+    backgroundColor: '#ddd',
   },
   petName: {
     fontSize: 14,
@@ -243,5 +264,4 @@ const styles = StyleSheet.create({
     color: '#444',
     lineHeight: 20,
   },
-  
 });
