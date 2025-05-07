@@ -60,6 +60,24 @@ export default function HomeScreen() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Adopt a Pet</Text>
+
+      <View style={styles.categoriesContainer}>
+        <Text style={styles.categoryTitle}>Categories</Text>
+        <View style={styles.categoryRow}>
+          {[
+            { label: 'Dogs' },
+            { label: 'Cats' },
+            { label: 'Birds' },
+            { label: 'Others' },
+          ].map((category, index) => (
+            <TouchableOpacity key={index} style={styles.category}>
+              <View style={styles.categoryIcon} />
+              <Text style={styles.categoryLabel}>{category.label}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </View>
+
       <View style={styles.grid}>
         {pets.map((pet) => (
           <TouchableOpacity
@@ -119,5 +137,37 @@ const styles = StyleSheet.create({
   info: {
     fontSize: 13,
     color: '#555',
+  },
+  categoriesContainer: {
+    marginBottom: 16,
+  },
+  categoryTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    textAlign: 'left',
+    paddingHorizontal: 10,
+  },
+  categoryRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
+    gap: 20,
+  },
+  category: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  categoryIcon: {
+    width: 90,
+    height: 90,
+    borderRadius: 70,
+    backgroundColor: '#e0e0e0',
+    marginBottom: 6,
+  },
+  categoryLabel: {
+    fontSize: 14,
+    fontWeight: '500',
+    textAlign: 'center',
   },
 });

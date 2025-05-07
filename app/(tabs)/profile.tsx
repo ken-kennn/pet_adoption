@@ -69,7 +69,7 @@ export default function ProfileScreen() {
         <Text style={styles.welcomeText}>WELCOME KENNETH!!</Text>
         
         <View style={styles.headerButtons}>
-          <TouchableOpacity style={styles.editButton} > {/* onPress={() => router.push('/edit_profile')} */}
+          <TouchableOpacity style={styles.editButton} >
             <Text style={styles.logoutButtonText}>Edit Profie</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.logoutButton} onPress={() => router.replace('/login')}>
@@ -79,7 +79,11 @@ export default function ProfileScreen() {
       </View>
 
       {/* Info Box */}
-      <View style={styles.infoBox} />
+      <Text style={styles.sectionTitle}>DESCRIPTION</Text>
+      <View style={styles.infoBox}>
+        <Text style={styles.infoText}>Pet Lover</Text>
+      </View>
+
 
       {/* Favorite Pets Section */}
       <Text style={styles.sectionTitle}>FAVORITE PETS</Text>
@@ -186,7 +190,7 @@ const styles = StyleSheet.create({
     color: '#555',
   },
   removeButton: {
-    backgroundColor: '#d32f2f',
+    backgroundColor: '#6E6E6E',
     paddingHorizontal: 10,
     paddingVertical: 6,
     borderRadius: 6,
@@ -196,8 +200,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold',
   },
+  infoText: {
+    fontSize: 14,
+    marginBottom: 4,
+    color: '#333',
+    padding: 12,
+  },  
   button: {
-    backgroundColor: '#1976d2',
+    backgroundColor: '#64dd69',
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 8,
