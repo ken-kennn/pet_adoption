@@ -1,75 +1,117 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+// app/(tabs)/index.tsx
+import React from 'react';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const pets = [
+  {
+    id: 1,
+    name: 'Buddy',
+    breed: 'Golden Retriever',
+    age: '2 years',
+  },
+  {
+    id: 2,
+    name: 'Mittens',
+    breed: 'Siamese Cat',
+    age: '1 year',
+  },
+  {
+    id: 3,
+    name: 'Max',
+    breed: 'Bulldog',
+    age: '3 years',
+  },
+  {
+    id: 4,
+    name: 'Luna',
+    breed: 'Persian Cat',
+    age: '2 years',
+  },
+  {
+    id: 5,
+    name: 'Charlie',
+    breed: 'Beagle',
+    age: '4 months',
+  },
+  {
+    id: 6,
+    name: 'Bella',
+    breed: 'Ragdoll Cat',
+    age: '3 months',
+  },
+  {
+    id: 7,
+    name: 'Bella',
+    breed: 'Ragdoll Cat',
+    age: '3 months',
+  },
+  {
+    id: 8,
+    name: 'Bella',
+    breed: 'Ragdoll Cat',
+    age: '3 months',
+    image: 'https://placekitten.com/402/302',
+  },
+];
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.title}>Adopt a Pet</Text>
+      <View style={styles.grid}>
+        {pets.map((pet) => (
+          <View key={pet.id} style={styles.card}>
+            <Image source={{ uri: pet.image }} style={styles.image} />
+            <Text style={styles.name}>{pet.name}</Text>
+            <Text style={styles.info}>{pet.breed}</Text>
+            <Text style={styles.info}>{pet.age}</Text>
+          </View>
+        ))}
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    padding: 16,
+    backgroundColor: '#fff',
   },
-  stepContainer: {
-    gap: 8,
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 12,
+    textAlign: 'center',
+  },
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  card: {
+    width: '48%',
+    backgroundColor: '#f8f8f8',
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 12,
+    elevation: 2, // for Android shadow
+    shadowColor: '#000', // iOS shadow
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+  },
+  image: {
+    width: '100%',
+    height: 120,
+    borderRadius: 6,
     marginBottom: 8,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  name: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  info: {
+    fontSize: 13,
+    color: '#555',
   },
 });
