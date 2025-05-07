@@ -1,6 +1,6 @@
-// app/(tabs)/index.tsx
+import { useRouter } from 'expo-router';
 import React from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const pets = [
   {
@@ -41,31 +41,37 @@ const pets = [
   },
   {
     id: 7,
-    name: 'Bella',
+    name: 'Coco',
     breed: 'Ragdoll Cat',
     age: '3 months',
   },
   {
     id: 8,
-    name: 'Bella',
+    name: 'Daisy',
     breed: 'Ragdoll Cat',
     age: '3 months',
-    image: 'https://placekitten.com/402/302',
+    image: 'https://placekitten.com/407/307',
   },
 ];
 
 export default function HomeScreen() {
+  const router = useRouter();
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Adopt a Pet</Text>
       <View style={styles.grid}>
         {pets.map((pet) => (
-          <View key={pet.id} style={styles.card}>
+          <TouchableOpacity
+            key={pet.id}
+            style={styles.card}
+            onPress={() => router.push({ pathname: '/pet-details', params: { ...pet } })}
+          >
             <Image source={{ uri: pet.image }} style={styles.image} />
             <Text style={styles.name}>{pet.name}</Text>
             <Text style={styles.info}>{pet.breed}</Text>
-            <Text style={styles.info}>{pet.age}</Text>
-          </View>
+            {/* <Text style={styles.info}>{pet.age}</Text> */}
+          </TouchableOpacity>
         ))}
       </View>
     </ScrollView>
@@ -94,8 +100,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     marginBottom: 12,
-    elevation: 2, // for Android shadow
-    shadowColor: '#000', // iOS shadow
+    elevation: 2,
+    shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,

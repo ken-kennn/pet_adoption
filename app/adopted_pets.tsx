@@ -1,44 +1,45 @@
 import { useRouter } from 'expo-router';
+import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export default function ProfileScreen() {
+const AdoptedPets = () => {
   const router = useRouter();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Your Profile</Text>
+      <Text style={styles.title}>Adopted Pets</Text>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => router.push('/adopted_pets')}
-      >
-        <Text style={styles.buttonText}>View Adopted Pets</Text>
+      <TouchableOpacity style={styles.button} onPress={() => router.replace('/(tabs)/profile')}>
+        <Text style={styles.buttonText}>Go Back</Text>
       </TouchableOpacity>
     </View>
   );
-}
+};
+
+export default AdoptedPets;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 20,
+    backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
   },
-  text: {
-    fontSize: 24,
+  title: {
+    fontSize: 24,   
     fontWeight: 'bold',
     marginBottom: 20,
   },
   button: {
-    backgroundColor: '#1976d2',
+    backgroundColor: '#757575',
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 8,
   },
   buttonText: {
     color: '#fff',
-    fontSize: 16,
     fontWeight: '600',
+    fontSize: 16,
   },
 });
