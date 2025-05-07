@@ -8,6 +8,7 @@ const pets = [
     name: 'Buddy',
     breed: 'Golden Retriever',
     age: '2 years',
+    image: require('../../assets/images/gr.jpg'),
   },
   {
     id: 2,
@@ -20,6 +21,8 @@ const pets = [
     name: 'Max',
     breed: 'Bulldog',
     age: '3 years',
+    image: require('../../assets/images/bd.jpg'),
+
   },
   {
     id: 4,
@@ -50,7 +53,7 @@ const pets = [
     name: 'Daisy',
     breed: 'Ragdoll Cat',
     age: '3 months',
-    image: 'https://placekitten.com/407/307',
+  
   },
 ];
 
@@ -59,9 +62,16 @@ export default function HomeScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Adopt a Pet</Text>
+
+      <View style={styles.header}>
+        <Image source={require('../../assets/images/pet_adoption.png')} style={styles.headerIcon} />
+        <Text style={styles.brandTitle}>Pettio</Text>
+      </View>
 
       <View style={styles.categoriesContainer}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Adopt a Pet</Text>
+        </View>
         <Text style={styles.categoryTitle}>Categories</Text>
         <View style={styles.categoryRow}>
           {[
@@ -85,7 +95,11 @@ export default function HomeScreen() {
             style={styles.card}
             onPress={() => router.push({ pathname: '/pet-details', params: { ...pet } })}
           >
-            <Image source={{ uri: pet.image }} style={styles.image} />
+            <Image
+              source={typeof pet.image === 'string' ? { uri: pet.image } : pet.image}
+              style={styles.image}
+            />
+
             <Text style={styles.name}>{pet.name}</Text>
             <Text style={styles.info}>{pet.breed}</Text>
             {/* <Text style={styles.info}>{pet.age}</Text> */}
@@ -97,15 +111,41 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    marginBottom: 12,
+  },
+  
+  brandTitle: {
+    fontSize: 20,
+    fontWeight: 900,
+    marginLeft: 10,
+    color: '#333', // optional: make it visually appealing
+  },
+  
+  headerIcon: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
+  },
+  
+  
   container: {
     padding: 16,
     backgroundColor: '#fff',
   },
+  titleContainer: {
+    flex: 1,
+    marginLeft: 10,
+  },
+  
   title: {
-    fontSize: 24,
+    fontSize: 44,
     fontWeight: 'bold',
     marginBottom: 12,
-    textAlign: 'center',
+   
   },
   grid: {
     flexDirection: 'row',
@@ -129,6 +169,7 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 6,
     marginBottom: 8,
+
   },
   name: {
     fontSize: 16,

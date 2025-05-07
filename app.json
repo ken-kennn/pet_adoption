@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "pet_adoption",
-    "slug": "pet_adoption",
+    "name": "Pettio",
+    "slug": "Pettio ",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/pet_adoption.png",
