@@ -68,6 +68,8 @@ export default function HomeScreen() {
  
   const router = useRouter();
 
+ 
+
   return (
 
     <SafeAreaView style={{ flex: 1 }}>
@@ -95,13 +97,13 @@ export default function HomeScreen() {
         <Text style={styles.categoryTitle}>Categories</Text>
         <View style={styles.categoryRow}>
           {[
-            { label: 'Dogs' },
-            { label: 'Cats' },
-            { label: 'Birds' },
-            { label: 'Others' },
+            { label: 'Dogs', image: require('../../assets/images/dog.png') },
+            { label: 'Cats', image: require('../../assets/images/c.png') },
+            { label: 'Birds', image: require('../../assets/images/bird.png') },
+            { label: 'Others', image: require('../../assets/images/others.jpg') },
           ].map((category, index) => (
             <TouchableOpacity key={index} style={styles.category}>
-              <View style={styles.categoryIcon} />
+              <Image source={category.image} style={styles.categoryIcon} />
               <Text style={styles.categoryLabel}>{category.label}</Text>
             </TouchableOpacity>
           ))}
@@ -160,21 +162,20 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
   },
-  
+
   brandTitle: {
     fontSize: 20,
     fontWeight: 900,
     marginLeft: 10,
     color: '#333', // optional: make it visually appealing
   },
-  
+
   headerIcon: {
     width: 30,
     height: 30,
     resizeMode: 'contain',
   },
-  
-  
+
   container: {
     padding: 16,
     backgroundColor: '#fff',
@@ -183,12 +184,11 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 10,
   },
-  
+
   title: {
     fontSize: 44,
     fontWeight: 'bold',
     marginBottom: 12,
-   
   },
   grid: {
     flexDirection: 'row',
@@ -209,10 +209,10 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 120,
+    height: 150, // Increased for better display
+    resizeMode: 'cover',
     borderRadius: 6,
     marginBottom: 8,
-
   },
   name: {
     fontSize: 16,
@@ -245,9 +245,10 @@ const styles = StyleSheet.create({
   categoryIcon: {
     width: 90,
     height: 90,
-    borderRadius: 70,
-    backgroundColor: '#e0e0e0',
+    borderRadius: 10,
+    backgroundColor: '#f1f1f1',
     marginBottom: 6,
+    resizeMode: 'cover', // Enable image scaling inside the circle
   },
   categoryLabel: {
     fontSize: 14,
