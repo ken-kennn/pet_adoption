@@ -15,57 +15,16 @@ const adoptedPets = [
     name: 'Buddy',
     breed: 'Golden Retriever',
     adoptionDate: '2023-10-01',
-    image: 'https://place-puppy.com/150x150',
+    image: require('../assets/images/gr.jpg'),
   },
   {
     id: 2,
     name: 'Mittens',
     breed: 'Siamese Cat',
     adoptionDate: '2023-11-05',
-    image: 'https://placekitten.com/150/150',
+    image: require('../assets/images/rc3.jpg'),
   },
-  {
-    id: 3,
-    name: 'Max',
-    breed: 'Bulldog',
-    adoptionDate: '2023-09-12',
-    image: 'https://place-puppy.com/151x151',
-  },
-  {
-    id: 4,
-    name: 'Luna',
-    breed: 'Persian Cat',
-    adoptionDate: '2023-12-20',
-    image: 'https://placekitten.com/151/151',
-  },
-  {
-    id: 5,
-    name: 'Charlie',
-    breed: 'Beagle',
-    adoptionDate: '2024-01-15',
-    image: 'https://place-puppy.com/152x152',
-  },
-  {
-    id: 6,
-    name: 'Bella',
-    breed: 'Ragdoll Cat',
-    adoptionDate: '2024-02-10',
-    image: 'https://placekitten.com/152/152',
-  },
-  {
-    id: 7,
-    name: 'Rocky',
-    breed: 'German Shepherd',
-    adoptionDate: '2024-03-03',
-    image: 'https://place-puppy.com/153x153',
-  },
-  {
-    id: 8,
-    name: 'Daisy',
-    breed: 'British Shorthair',
-    adoptionDate: '2024-04-18',
-    image: 'https://placekitten.com/153/153',
-  },
+ 
 ];
 
 const AdoptedPets = () => {
@@ -82,7 +41,17 @@ const AdoptedPets = () => {
         contentContainerStyle={styles.listContainer}
         renderItem={({ item }) => (
           <View style={styles.card}>
-            <Image source={{ uri: item.image }} style={styles.image} />
+            {item.image ? (
+              typeof item.image === 'string' ? (
+                <Image source={{ uri: item.image }} style={styles.image} />
+              ) : (
+                <Image source={item.image} style={styles.image} />
+              )
+            ) : (
+              <View style={[styles.image, { justifyContent: 'center', alignItems: 'center' }]}>
+                <Text style={{ fontSize: 10, color: '#888' }}>No Image</Text>
+              </View>
+            )}
             <Text style={styles.petName}>{item.name}</Text>
             <Text style={styles.breed}>{item.breed}</Text>
             <Text style={styles.date}>Adopted: {item.adoptionDate}</Text>

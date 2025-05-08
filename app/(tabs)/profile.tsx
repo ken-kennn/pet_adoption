@@ -15,44 +15,21 @@ const initialFavoritePets = [
     name: 'Bruno',
     type: 'Dog',
     description: 'Friendly and loves to play fetch.',
-    image: 'https://place-puppy.com/100x100',
+    image: require('../../assets/images/gr.jpg'),
   },
   {
     id: 2,
     name: 'Whiskers',
     type: 'Cat',
     description: 'Loves naps and cuddles.',
-    image: 'https://placekitten.com/100/100',
+    image: require('../../assets/images/rc3.jpg'),
   },
   {
     id: 3,
     name: 'Chirpy',
     type: 'Parrot',
     description: 'Talkative and colorful.',
-  },
-  {
-    id: 4,
-    name: 'Chirpy',
-    type: 'Parrot',
-    description: 'Talkative and colorful.',
-  },
-  {
-    id: 5,
-    name: 'Chirpy',
-    type: 'Parrot',
-    description: 'Talkative and colorful.',
-  },
-  {
-    id: 6,
-    name: 'Chirpy',
-    type: 'Parrot',
-    description: 'Talkative and colorful.',
-  },
-  {
-    id: 7,
-    name: 'Chirpy',
-    type: 'Parrot',
-    description: 'Talkative and colorful.',
+    image: require('../../assets/images/parrot.jpg'),
   },
 ];
 
@@ -60,46 +37,59 @@ export default function ProfileScreen() {
   const router = useRouter();
   const [favoritePets, setFavoritePets] = useState(initialFavoritePets);
 
- 
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <View style={styles.avatar} />
+        <Image
+          source={require('../../assets/images/kenneth.jpg')}
+          style={styles.avatar}
+        />
         <Text style={styles.welcomeText}>WELCOME KENNETH!!</Text>
-        
+
         <View style={styles.headerButtons}>
-          <TouchableOpacity style={styles.editButton} >
-            <Text style={styles.logoutButtonText}>Edit Profie</Text>
+          <TouchableOpacity style={styles.editButton}>
+            <Text style={styles.logoutButtonText}>Edit Profile</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.logoutButton} onPress={() => router.replace('/login')}>
+          <TouchableOpacity
+            style={styles.logoutButton}
+            onPress={() => router.replace('/login')}
+          >
             <Text style={styles.logoutButtonText}>Logout</Text>
           </TouchableOpacity>
         </View>
       </View>
 
       {/* Info Box */}
-      <Text style={styles.sectionTitle}>DESCRIPTION</Text>
+      <Text style={styles.sectionTitle}>About Me</Text>
       <View style={styles.infoBox}>
         <Text style={styles.infoText}>Pet Lover</Text>
       </View>
-
 
       {/* Favorite Pets Section */}
       <Text style={styles.sectionTitle}>FAVORITE PETS</Text>
       <ScrollView style={styles.petsBox}>
         {favoritePets.map((pet) => (
           <View key={pet.id} style={styles.petCard}>
-            <Image source={{ uri: pet.image }} style={styles.petImage} />
+            {pet.image ? (
+              <Image source={pet.image} style={styles.petImage} />
+            ) : (
+              <View
+                style={[
+                  styles.petImage,
+                  { justifyContent: 'center', alignItems: 'center' },
+                ]}
+              >
+                <Text style={{ fontSize: 10, color: '#888' }}>No Image</Text>
+              </View>
+            )}
+
             <View style={styles.petDetails}>
               <Text style={styles.petName}>{pet.name}</Text>
               <Text style={styles.petType}>{pet.type}</Text>
               <Text style={styles.petDescription}>{pet.description}</Text>
             </View>
-            <TouchableOpacity
-              style={styles.removeButton}
-             
-            >
+            <TouchableOpacity style={styles.removeButton}>
               <Text style={styles.removeButtonText}>Remove</Text>
             </TouchableOpacity>
           </View>
@@ -123,6 +113,11 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#fff',
   },
+  searchIcon: {
+    width: 20,
+    height: 20,
+    marginRight: 10,
+  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -133,7 +128,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     borderWidth: 1,
-    borderColor: '#000',
+    borderColor: '#e4e4e4',
     marginRight: 10,
   },
   welcomeText: {
@@ -205,7 +200,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     color: '#333',
     padding: 12,
-  },  
+  },
   button: {
     backgroundColor: '#64dd69',
     paddingVertical: 12,
@@ -213,8 +208,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignSelf: 'center',
     justifyContent: 'center',
-    alignItems: 'center', 
-    
+    alignItems: 'center',
   },
   buttonText: {
     color: '#fff',
@@ -222,21 +216,18 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     width: 340,
     textAlign: 'center',
-    
   },
   headerButtons: {
     flexDirection: 'row',
     gap: 8,
     marginLeft: 'auto',
   },
-  
   editButton: {
     backgroundColor: '#1976d2',
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 6,
   },
-  
   logoutButton: {
     marginLeft: 'auto',
     backgroundColor: '#d32f2f',
@@ -249,5 +240,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 12,
   },
-
 });
