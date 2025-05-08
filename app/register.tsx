@@ -18,7 +18,6 @@ export default function RegisterScreen() {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => router.replace('/(tabs)')} // Navigate to tabs after register
       >
         <Text style={styles.buttonText}>Register</Text>
       </TouchableOpacity>

@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+
 
 const pets = [
   {
@@ -64,14 +65,27 @@ const pets = [
 ];
 
 export default function HomeScreen() {
+ 
   const router = useRouter();
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+
+    <SafeAreaView style={{ flex: 1 }}>
+
+      <ScrollView contentContainerStyle={styles.container}>
 
       <View style={styles.header}>
         <Image source={require('../../assets/images/pet_adoption.png')} style={styles.headerIcon} />
         <Text style={styles.brandTitle}>Pettio</Text>
+        <View style={styles.searchContainer}>
+          
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Search..."
+            placeholderTextColor="#888"
+          />
+          <Image source={require('../../assets/images/sb.jpg')} style={styles.searchIcon} />
+        </View>
       </View>
 
       <View style={styles.categoriesContainer}>
@@ -108,11 +122,15 @@ export default function HomeScreen() {
 
             <Text style={styles.name}>{pet.name}</Text>
             <Text style={styles.info}>{pet.breed}</Text>
+            
             {/* <Text style={styles.info}>{pet.age}</Text> */}
           </TouchableOpacity>
         ))}
       </View>
-    </ScrollView>
+      </ScrollView>
+
+    </SafeAreaView>
+    
   );
 }
 
@@ -122,6 +140,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 10,
     marginBottom: 12,
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0',
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    width: 268,
+    marginLeft: 20,
+  },
+  searchIcon: {
+    width: 20,
+    height: 20,
+    marginRight: 10,
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 16,
   },
   
   brandTitle: {
